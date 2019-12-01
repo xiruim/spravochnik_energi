@@ -91,7 +91,7 @@ class _MenuViborScreenState extends State<MenuViborScreen> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Sprav_Energonositel()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SpravEnergonositel()));
                         },
                       ),
                     ),
