@@ -15,39 +15,49 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   // создаем контроллеры
   TextEditingController valueFirst =
       TextEditingController(); // контроллер для сохранения величины вводимого значения
-  TextEditingController valueSecond =
-      TextEditingController(); //контроллер для сохранения величины выводимого значения
+  double valueSecond; //переменная для сохранения величины выводимого значения
   TextEditingController valueName =
   TextEditingController(); //контроллер для сохранения наименования величины вводимого значения
 
-  String nameValue="Электроэнергия"; double tSgoraniya= 1;
-  String gaz= "Газ природный, м3"; double valGaz= 9.3;//Кол-во для получения 1кВт
-  String drova="Дрова, кг"; double valDrova = 3.9; //Кол-во для получения 1кВт
-  String pellet="Пеллеты, кг"; double valPellet = 4.7; //Кол-во для получения 1кВт
-  String ugol="Уголь каменный, кг"; double valUgol = 7.5; //Кол-во для получения 1кВт
-  String electro="Электроэнергия, кВт/ч"; double valElectro = 1; //Кол-во для получения 1кВт
-  String dtoplivo="Дизель, л"; double valDt = 11.9; //Кол-во для получения 1кВт
-  String mazut="Мазут, л"; double valMazut = 11.2; //Кол-во для получения 1кВт
-  String neft="Нефть, л"; double valNeft = 12.2; //Кол-во для получения 1кВт
-  String benzin="Бензин, л"; double valBenzin = 12.2; //Кол-во для получения 1кВт
-  String gazSgigen="Газ сжиженный, кг"; double valGazSgigen = 12.5; //Кол-во для получения 1кВт
+  String nameValue="Выберите энергоноситель"; double tSgoraniya;
+  String gaz= "Газ природный, м3"; double valGaz= 8000;//Кол-во для получения 1кВт
+  String drova="Дрова, кг"; double valDrova = 3400; //Кол-во для получения 1кВт
+  String pellet="Пеллеты, кг"; double valPellet = 4100; //Кол-во для получения 1кВт
+  String ugol="Уголь каменный, кг"; double valUgol = 6450; //Кол-во для получения 1кВт
+  String electro="Электроэнергия, кВт/ч"; double valElectro = 864; //Кол-во для получения 1кВт
+  String dtoplivo="Дизель, л"; double valDt = 10300; //Кол-во для получения 1кВт
+  String mazut="Мазут, л"; double valMazut = 9700; //Кол-во для получения 1кВт
+  String neft="Нефть, л"; double valNeft = 10500; //Кол-во для получения 1кВт
+  String benzin="Бензин, л"; double valBenzin = 10500; //Кол-во для получения 1кВт
+  String gazSgigen="Газ сжиженный, кг"; double valGazSgigen = 10800; //Кол-во для получения 1кВт
 
 
 
   //---переменные для таблицы
   double width_tabl = 200; //ширина ячейки таблицы
-  double height_tabl = 50; //высота ячейки таблицы
+  double height_tabl = 70; //высота ячейки таблицы
 
-  bool checkBoxValue = false;
-  bool switchValue = false;
-  double sliderValue = 0.0;
-  int _radioValue = 1;
+  // ---переменные для вывода данных
+  double vT;//Выделяемое тепло при затрате определенного кол-ва топлива. кКал
+  double vElectro; //выводит данные по отношению к ЭЭ
+  double vGaz;//  выводит данные по отношению к природному газу
+  double vUgol;//выводит данные по отношению к уголь
+  double nEl;//коэф отношения к электроэнергии
+  double nGaz; //коэф отношения к газ
+  double nUgol;//коэф отношения к уголь
+  double n=1;// переменная для хранения вводимый объем
+  String nString;// переменная для хранения вводимый объем в текстовом значении
 
-  Widget getComponent(String valName, double val){
+//  bool checkBoxValue = false; // наверное это не надо
+//  bool switchValue = false;
+//  double sliderValue = 0.0;
+//  int _radioValue = 1;
+
+  Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
 
     return Container(
       width: 250,
-      height: 60,
+      height: 80,
       padding: EdgeInsets.all(5),
 
       child: RaisedButton(
@@ -66,7 +76,11 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
         onPressed: () {
           setState(() {
             nameValue=valName;
-            tSgoraniya=val;//Теплота сгорания 1м3 природного газа ккал/м3
+            tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
+            nEl=kEl;
+            nGaz=kGaz;
+            nUgol=kUgol;
+
             Navigator.pop(context);// закрывает выпадающее меню
           });
         },
@@ -79,23 +93,24 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
+      endDrawer: Drawer(
+
+        child: ListView(
+          //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
           children: <Widget>[
             Container(
               height: 50,
             ),
-            getComponent(electro, valElectro),
-            getComponent(gaz, valGaz),
-            getComponent(gazSgigen, valGazSgigen),
-            getComponent(ugol, valUgol),
-            getComponent(drova, valDrova),
-            getComponent(pellet, valPellet),
-            getComponent(benzin, valBenzin),
-            getComponent(dtoplivo, valDt),
-            getComponent(mazut, valMazut),
-            getComponent(neft, valNeft),
+            getComponent(electro, valElectro, 1, 0.108, 0.133),
+            getComponent(gaz, valGaz, 9.3, 1, 1.24),
+            getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
+            getComponent(ugol, valUgol, 7.5,  0.806, 1),
+            getComponent(drova, valDrova, 3.9, 0.452, 0.52),
+            getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
+            getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
+            getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
+            getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
+            getComponent(neft, valNeft, 12.2, 1.313, 1.627),
           ],
         ),
       ),
@@ -103,7 +118,11 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
           title: Text(
         "Калькулятор различных видов топлива",
         maxLines: 10,
-      )),
+      ),
+        leading: new IconButton(icon:
+            new Icon(Icons.arrow_back, color: Colors.white,),
+            onPressed: ()=>Navigator.of(context).pop()),
+      ),
       body: ListView(
         children: <Widget>[
           Table(
@@ -192,8 +211,200 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                   ]),
             ],
           ),
+          Container(
+            width: 250,
+            height: 70,
+            color: Colors.greenAccent,
+            child: Container(
+              width: 230,
+              height: 50,
+              margin: EdgeInsets.all(15),
+              color: Colors.black12,
+              child: RaisedButton(
+                elevation:
+                3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
+                color: Colors.greenAccent,
+                child: Text(
+                  "Расчитать",
+                  textScaleFactor: 1.5,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.indigo),
+                ),
+                onPressed: () {
+                  setState(() {
+                    nString=valueFirst.text;
+                    print("-------------------------");
+                    print("nString" + " " + nString);
+                    n=double.parse(nString);
+                    print("-------------------------");
+                    print(n);
+                    vT=tSgoraniya*n;//Теплота сгорания введенного объема топлива ккал
+                    vElectro=n*nEl;// по отношении к электроэнергии
+                    vGaz=n*nGaz;// по отношении к Газу
+                    vUgol=n*nUgol;// по отношении к Углю
+
+
+
+                  });
+                },
+              ),
+            ),
+          ),
+          Table(//вторая таблица с результатами
+            border: TableBorder.all(),
+//            defaultVerticalAlignment:
+//            TableCellVerticalAlignment.top,//базовая линия таблицы
+
+            defaultColumnWidth: FixedColumnWidth(50.0),
+            children: [
+              TableRow(//первая строка таблицы
+
+                  children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                    TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                      child: Container(
+                        height: height_tabl,
+                        child: Text(
+                          "Теплота сгорания введенного объема топлива, кКал",
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+//                  height: height_tabl, //высота строки
+                      child: Text(
+                        vT.toString(),
+                        textScaleFactor: 1.5,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.indigo),
+                      ),
+                    ),
+                  ]),
+              TableRow(//
+
+                  children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                    TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                      child: Container(
+                        height: height_tabl,
+                        child: Text(
+                          "Электроэнергии для выработки этого же кол-ва тепла необходимо затратить, кВт",
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+//                  height: height_tabl, //высота строки
+                      child: Text(
+                        vElectro.toString(),
+                        textScaleFactor: 1.5,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.indigo),
+                      ),
+                    ),
+                  ]),
+              TableRow(//
+
+                  children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                    TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                      child: Container(
+                        height: height_tabl,
+                        child: Text(
+                          "Газа природного для выработки этого же кол-ва тепла необходимо затратить, м3",
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+//                  height: height_tabl, //высота строки
+                      child: Text(
+                        vGaz.toString(),
+                        textScaleFactor: 1.5,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.indigo),
+                      ),
+                    ),
+                  ]),
+              TableRow(//первая строка таблицы
+
+                  children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                    TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                      child: Container(
+                        height: height_tabl,
+                        child: Text(
+                          "Угля каменного для выработки этого же кол-ва тепла необходимо затратить, кг",
+                          textScaleFactor: 1.0,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87),
+                        ),
+                      ),
+                    ),
+                    TableCell(
+//                  height: height_tabl, //высота строки
+                      child: Text(
+                        vUgol.toString(),
+                        textScaleFactor: 1.5,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.indigo),
+                      ),
+                    ),
+                  ]),
+            ],
+          ),
         ],
       ),
+
     );
   }
 }
