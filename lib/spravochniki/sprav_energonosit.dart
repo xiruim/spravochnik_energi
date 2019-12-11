@@ -47,6 +47,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   double nUgol;//коэф отношения к уголь
   double n=1;// переменная для хранения вводимый объем
   String nString;// переменная для хранения вводимый объем в текстовом значении
+  
+  final _scaffoldKey=GlobalKey<ScaffoldState>();
 
 //  bool checkBoxValue = false; // наверное это не надо
 //  bool switchValue = false;
@@ -63,7 +65,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
       child: RaisedButton(
         elevation:
         3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-        color: Colors.white30,
+        color: Colors.greenAccent,
         child: Text(
           valName,
           textScaleFactor: 1.5,
@@ -80,7 +82,6 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             nEl=kEl;
             nGaz=kGaz;
             nUgol=kUgol;
-
             Navigator.pop(context);// закрывает выпадающее меню
           });
         },
@@ -114,6 +115,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
           ],
         ),
       ),
+      key: _scaffoldKey,
       appBar: AppBar(
           title: Text(
         "Калькулятор различных видов топлива",
@@ -214,7 +216,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
           Container(
             width: 250,
             height: 70,
-            color: Colors.greenAccent,
+            color: Colors.white30,
             child: Container(
               width: 230,
               height: 50,
@@ -223,7 +225,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
               child: RaisedButton(
                 elevation:
                 3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-                color: Colors.greenAccent,
+                color: Colors.tealAccent,
                 child: Text(
                   "Расчитать",
                   textScaleFactor: 1.5,
@@ -234,21 +236,26 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       color: Colors.indigo),
                 ),
                 onPressed: () {
-                  setState(() {
-                    nString=valueFirst.text;
-                    print("-------------------------");
-                    print("nString" + " " + nString);
-                    n=double.parse(nString);
-                    print("-------------------------");
-                    print(n);
-                    vT=tSgoraniya*n;//Теплота сгорания введенного объема топлива ккал
-                    vElectro=n*nEl;// по отношении к электроэнергии
-                    vGaz=n*nGaz;// по отношении к Газу
-                    vUgol=n*nUgol;// по отношении к Углю
-
-
-
-                  });
+                  if (nameValue=="Выберите энергоноситель"){
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Нажмите в верхнем правом углу меню и выберите энергоноситель"),));
+                  } else{
+                    if(valueFirst.text==""){
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Вы не ввели кол-во, Пожалуйста введите кол-во"),));
+                    }else{
+                      setState(() {
+                        nString=valueFirst.text;
+                        print("-------------------------");
+                        print("nString" + " " + nString);
+                        n=double.parse(nString);
+                        print("-------------------------");
+                        print(n);
+                        vT=tSgoraniya*n;//Теплота сгорания введенного объема топлива ккал
+                        vElectro=n*nEl;// по отношении к электроэнергии
+                        vGaz=n*nGaz;// по отношении к Газу
+                        vUgol=n*nUgol;// по отношении к Углю
+                      });
+                    }
+                  }
                 },
               ),
             ),
