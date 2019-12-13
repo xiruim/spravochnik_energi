@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'main_drawer/main_drawers.dart';
 
 class SpravEnergonositel extends StatefulWidget {
   @override
@@ -94,27 +95,30 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Drawer(
+      endDrawer: MainDrawer(
 
-        child: ListView(
-          //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
-          children: <Widget>[
-            Container(
-              height: 50,
-            ),
-            getComponent(electro, valElectro, 1, 0.108, 0.133),
-            getComponent(gaz, valGaz, 9.3, 1, 1.24),
-            getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
-            getComponent(ugol, valUgol, 7.5,  0.806, 1),
-            getComponent(drova, valDrova, 3.9, 0.452, 0.52),
-            getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
-            getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
-            getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
-            getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
-            getComponent(neft, valNeft, 12.2, 1.313, 1.627),
-          ],
-        ),
       ),
+//      Drawer(
+//
+//        child: ListView(
+//          //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
+//          children: <Widget>[
+//            Container(
+//              height: 50,
+//            ),
+//            getComponent(electro, valElectro, 1, 0.108, 0.133),
+//            getComponent(gaz, valGaz, 9.3, 1, 1.24),
+//            getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
+//            getComponent(ugol, valUgol, 7.5,  0.806, 1),
+//            getComponent(drova, valDrova, 3.9, 0.452, 0.52),
+//            getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
+//            getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
+//            getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
+//            getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
+//            getComponent(neft, valNeft, 12.2, 1.313, 1.627),
+//          ],
+//        ),
+//      ),
       key: _scaffoldKey,
       appBar: AppBar(
           title: Text(
@@ -179,14 +183,20 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
 
-                      child: Text(
-                        nameValue,
-                        textScaleFactor: 1.5,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.deepOrange),
+                      child: RaisedButton(
+                        child: Text(
+                          nameValue,
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.deepOrange),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (
+                              context) => MainDrawer()));
+                        },
                       ),
                     ),
                     TableCell(
