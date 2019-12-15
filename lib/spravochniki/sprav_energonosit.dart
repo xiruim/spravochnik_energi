@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'main_drawer/main_drawers.dart';
+
+import 'main_drawer/energonosit_drawers.dart';
+
 
 class SpravEnergonositel extends StatefulWidget {
   @override
@@ -56,46 +58,46 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //  double sliderValue = 0.0;
 //  int _radioValue = 1;
 
-  Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
-
-    return Container(
-      width: 250,
-      height: 80,
-      padding: EdgeInsets.all(5),
-
-      child: RaisedButton(
-        elevation:
-        3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-        color: Colors.greenAccent,
-        child: Text(
-          valName,
-          textScaleFactor: 1.5,
-          textAlign: TextAlign.left,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-              color: Colors.indigo),
-        ),
-        onPressed: () {
-          setState(() {
-            nameValue=valName;
-            tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
-            nEl=kEl;
-            nGaz=kGaz;
-            nUgol=kUgol;
-            Navigator.pop(context);// закрывает выпадающее меню
-          });
-        },
-
-      ),
-    );
-
-  }
+//  Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
+//
+//    return Container(
+//      width: 250,
+//      height: 80,
+//      padding: EdgeInsets.all(5),
+//
+//      child: RaisedButton(
+//        elevation:
+//        3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
+//        color: Colors.greenAccent,
+//        child: Text(
+//          valName,
+//          textScaleFactor: 1.5,
+//          textAlign: TextAlign.left,
+//          style: TextStyle(
+//              fontWeight: FontWeight.bold,
+//              fontStyle: FontStyle.italic,
+//              color: Colors.indigo),
+//        ),
+//        onPressed: () {
+//          setState(() {
+//            nameValue=valName;
+//            tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
+//            nEl=kEl;
+//            nGaz=kGaz;
+//            nUgol=kUgol;
+//            Navigator.pop(context);// закрывает выпадающее меню
+//          });
+//        },
+//
+//      ),
+//    );
+//
+//  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: MainDrawer(
+      endDrawer: EnergonositDrawer(
 
       ),
 //      Drawer(
@@ -185,7 +187,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 
                       child: RaisedButton(
                         child: Text(
-                          nameValue,
+                          this.nameValue,
                           textScaleFactor: 1.5,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -195,7 +197,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                         ),
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (
-                              context) => MainDrawer()));
+                              context) => EnergonositDrawer()));
                         },
                       ),
                     ),

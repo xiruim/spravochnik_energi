@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:spravochnik_energi/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class MainDrawer extends StatefulWidget {
+class EnergonositDrawer extends StatefulWidget {
   @override
-  _MainDrawerState createState() => _MainDrawerState();
+  _EnergonositDrawerState createState() => _EnergonositDrawerState();
 }
 
-class _MainDrawerState extends State<MainDrawer> {
+class _EnergonositDrawerState extends State<EnergonositDrawer> {
   String title;
 
   // создаем контроллеры
@@ -50,6 +51,7 @@ class _MainDrawerState extends State<MainDrawer> {
 
   Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
 
+
   return Container(
     width: 250,
     height: 80,
@@ -69,12 +71,23 @@ class _MainDrawerState extends State<MainDrawer> {
             color: Colors.indigo),
       ),
       onPressed: () {
-        setState(() {
-          nameValue=valName;
-          tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
-          nEl=kEl;
-          nGaz=kGaz;
-          nUgol=kUgol;
+
+        setState(() async{
+          SharedPreferences pref=await SharedPreferences.getInstance();
+          await pref.setString("nameValue", valName);
+          await pref.setDouble("tSgoraniya", val);
+          await pref.setDouble("nEl", kEl);
+          await pref.setDouble("nGaz", kGaz);
+          await pref.setDouble("nUgol", kUgol);
+
+          print("-------------------------");
+          print("nameValue" + " " + pref.getString("nameValue"));
+//          nameValue=valName;
+//          tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
+//          nEl=kEl;
+//          nGaz=kGaz;
+//          nUgol=kUgol;
+
           Navigator.pop(context);// закрывает выпадающее меню
         });
       },
@@ -83,6 +96,7 @@ class _MainDrawerState extends State<MainDrawer> {
   );
 
 }
+
 
 
   @override
