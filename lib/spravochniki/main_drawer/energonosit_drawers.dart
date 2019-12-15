@@ -82,11 +82,6 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
 
           print("-------------------------");
           print("nameValue" + " " + pref.getString("nameValue"));
-//          nameValue=valName;
-//          tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
-//          nEl=kEl;
-//          nGaz=kGaz;
-//          nUgol=kUgol;
 
           Navigator.pop(context);// закрывает выпадающее меню
         });

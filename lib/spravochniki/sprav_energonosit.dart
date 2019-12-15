@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_drawer/energonosit_drawers.dart';
 
@@ -23,6 +24,12 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   TextEditingController(); //контроллер для сохранения наименования величины вводимого значения
 
   String nameValue="Выберите энергоноситель"; double tSgoraniya;
+  void _nameVal(){
+    setState(() async{
+      SharedPreferences pref=await SharedPreferences.getInstance();
+      nameValue=pref.getString("nameValue");
+    });
+  }
   String gaz= "Газ природный, м3"; double valGaz= 8000;//Кол-во для получения 1кВт
   String drova="Дрова, кг"; double valDrova = 3400; //Кол-во для получения 1кВт
   String pellet="Пеллеты, кг"; double valPellet = 4100; //Кол-во для получения 1кВт
@@ -96,8 +103,10 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       endDrawer: EnergonositDrawer(
+
 
       ),
 //      Drawer(
@@ -132,6 +141,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             onPressed: ()=>Navigator.of(context).pop()),
       ),
       body: ListView(
+
         children: <Widget>[
           Table(
             border: TableBorder.all(),
@@ -196,8 +206,10 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                               color: Colors.deepOrange),
                         ),
                         onPressed: () {
+
                           Navigator.push(context, MaterialPageRoute(builder: (
                               context) => EnergonositDrawer()));
+                          _nameVal();
                         },
                       ),
                     ),
