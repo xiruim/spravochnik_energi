@@ -266,17 +266,19 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                     if(valueFirst.text==""){
                       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Вы не ввели кол-во, Пожалуйста введите кол-во"),));
                     }else{
-                      setState(() {
+                      setState(() async{
                         nString=valueFirst.text;
                         print("-------------------------");
                         print("nString" + " " + nString);
                         n=double.parse(nString);
                         print("-------------------------");
                         print(n);
-                        vT=tSgoraniya*n;//Теплота сгорания введенного объема топлива ккал
-                        vElectro=n*nEl;// по отношении к электроэнергии
-                        vGaz=n*nGaz;// по отношении к Газу
-                        vUgol=n*nUgol;// по отношении к Углю
+
+                        SharedPreferences pref=await SharedPreferences.getInstance();
+                        vT=pref.getDouble("tSgoraniya")*n;//Теплота сгорания введенного объема топлива ккал
+                        vElectro=pref.getDouble("nEl")*n;// по отношении к электроэнергии
+                        vGaz=pref.getDouble("nGaz")*n;// по отношении к Газу
+                        vUgol=pref.getDouble("nUgol")*n;// по отношении к Углю
                       });
                     }
                   }
