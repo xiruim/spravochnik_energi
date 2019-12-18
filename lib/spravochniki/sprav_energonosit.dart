@@ -159,7 +159,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                           ),
                           Positioned(
                             child: RaisedButton(
-//                              highlightColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
                               color: Color(0x00444444),
                               highlightElevation: height_tabl,
                               onPressed: () {
