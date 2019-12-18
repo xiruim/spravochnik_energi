@@ -10,11 +10,11 @@ import 'main_drawer/energonosit_drawers.dart';
 class SpravEnergonositel extends StatefulWidget {
   @override
   _SpravEnergonositelState createState() => _SpravEnergonositelState();
+
 }
 
 class _SpravEnergonositelState extends State<SpravEnergonositel> {
   String title;
-  //SpravEnergonositel({this.title}); //создаем конструктор
 
   // создаем контроллеры
   TextEditingController valueFirst =
@@ -23,11 +23,29 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   TextEditingController valueName =
   TextEditingController(); //контроллер для сохранения наименования величины вводимого значения
 
+  @override
+  void initState(){
+    super.initState();
+    _nameVal();
+  }
+
   String nameValue="Выберите энергоноситель"; double tSgoraniya;
-  void _nameVal(){
-    setState(() async{
-      SharedPreferences pref=await SharedPreferences.getInstance();
-      nameValue=pref.getString("nameValue");
+  void _nameVal()async{
+    SharedPreferences pref=await SharedPreferences.getInstance();
+    nameValue=pref.getString("nameValue");
+    vT1=pref.getDouble("tSgoraniya");//Теплота сгорания 1 объема топлива ккал
+    vElectro1=pref.getDouble("nEl");// по отношении к электроэнергии
+    vGaz1=pref.getDouble("nGaz");// по отношении к Газу
+    vUgol1=pref.getDouble("nUgol");// по отношении к Углю
+
+    print("222222222222222222222222222222222222222");
+    print("nameValue" + " " + nameValue);
+    print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
+
+    setState(() {
+      print("3333333333333333333333333333333333333");
+      print("nameValue" + " " + nameValue);
+      print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
     });
   }
   String gaz= "Газ природный, м3"; double valGaz= 8000;//Кол-во для получения 1кВт
@@ -48,10 +66,10 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   double height_tabl = 70; //высота ячейки таблицы
 
   // ---переменные для вывода данных
-  double vT;//Выделяемое тепло при затрате определенного кол-ва топлива. кКал
-  double vElectro; //выводит данные по отношению к ЭЭ
-  double vGaz;//  выводит данные по отношению к природному газу
-  double vUgol;//выводит данные по отношению к уголь
+  double vT, vT1;//Выделяемое тепло при затрате определенного кол-ва топлива. кКал
+  double vElectro, vElectro1; //выводит данные по отношению к ЭЭ
+  double vGaz, vGaz1;//  выводит данные по отношению к природному газу
+  double vUgol, vUgol1;//выводит данные по отношению к уголь
   double nEl;//коэф отношения к электроэнергии
   double nGaz; //коэф отношения к газ
   double nUgol;//коэф отношения к уголь
@@ -60,76 +78,12 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   
   final _scaffoldKey=GlobalKey<ScaffoldState>();
 
-//  bool checkBoxValue = false; // наверное это не надо
-//  bool switchValue = false;
-//  double sliderValue = 0.0;
-//  int _radioValue = 1;
-
-//  Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
-//
-//    return Container(
-//      width: 250,
-//      height: 80,
-//      padding: EdgeInsets.all(5),
-//
-//      child: RaisedButton(
-//        elevation:
-//        3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-//        color: Colors.greenAccent,
-//        child: Text(
-//          valName,
-//          textScaleFactor: 1.5,
-//          textAlign: TextAlign.left,
-//          style: TextStyle(
-//              fontWeight: FontWeight.bold,
-//              fontStyle: FontStyle.italic,
-//              color: Colors.indigo),
-//        ),
-//        onPressed: () {
-//          setState(() {
-//            nameValue=valName;
-//            tSgoraniya=val;//Теплота сгорания 1 топлива ккал/м3
-//            nEl=kEl;
-//            nGaz=kGaz;
-//            nUgol=kUgol;
-//            Navigator.pop(context);// закрывает выпадающее меню
-//          });
-//        },
-//
-//      ),
-//    );
-//
-//  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       endDrawer: EnergonositDrawer(
-
-
       ),
-//      Drawer(
-//
-//        child: ListView(
-//          //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
-//          children: <Widget>[
-//            Container(
-//              height: 50,
-//            ),
-//            getComponent(electro, valElectro, 1, 0.108, 0.133),
-//            getComponent(gaz, valGaz, 9.3, 1, 1.24),
-//            getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
-//            getComponent(ugol, valUgol, 7.5,  0.806, 1),
-//            getComponent(drova, valDrova, 3.9, 0.452, 0.52),
-//            getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
-//            getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
-//            getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
-//            getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
-//            getComponent(neft, valNeft, 12.2, 1.313, 1.627),
-//          ],
-//        ),
-//      ),
       key: _scaffoldKey,
       appBar: AppBar(
           title: Text(
@@ -141,17 +95,14 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             onPressed: ()=>Navigator.of(context).pop()),
       ),
       body: ListView(
-
         children: <Widget>[
           Table(
             border: TableBorder.all(),
 //            defaultVerticalAlignment:
 //            TableCellVerticalAlignment.top,//базовая линия таблицы
-
             defaultColumnWidth: FixedColumnWidth(50.0),
             children: [
               TableRow(//первая строка таблицы
-
                   children: <TableCell>[
 //                TableCell(
 //                   child: Icon(Icons.wifi_tethering),
@@ -186,7 +137,6 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                 ),
               ]),
               TableRow(//вторая строка таблицы
-
                   children: <TableCell>[
 //                TableCell(
 //                   child: Icon(Icons.wifi_tethering),
@@ -194,32 +144,39 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                     TableCell(
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
-
-                      child: RaisedButton(
-                        child: Text(
-                          this.nameValue,
-                          textScaleFactor: 1.5,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.deepOrange),
-                        ),
-                        onPressed: () {
-
-                          Navigator.push(context, MaterialPageRoute(builder: (
-                              context) => EnergonositDrawer()));
-                          _nameVal();
-                        },
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            child: Text(
+                              nameValue,
+                              textScaleFactor: 1.5,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.deepOrange),
+                            ),
+                          ),
+                          Positioned(
+                            child: RaisedButton(
+//                              highlightColor: Colors.transparent,
+                              color: Color(0x00444444),
+                              highlightElevation: height_tabl,
+                              onPressed: () {
+                                print("rrrrrrrrrrrrrrrrrr");
+                                print("nameValue" + " "+ nameValue);
+                                Navigator.push(context, MaterialPageRoute(builder: (
+                                    context) => EnergonositDrawer()));
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     TableCell(
-
-
                       child: TextFormField(
                         controller: valueFirst,
                         keyboardType: TextInputType.number,
-
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
@@ -230,8 +187,6 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                             hintText: "Введите значение",
                           ),
                         textCapitalization: TextCapitalization.none,
-
-
                       ),
                     ),
                   ]),
@@ -266,7 +221,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                     if(valueFirst.text==""){
                       _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Вы не ввели кол-во, Пожалуйста введите кол-во"),));
                     }else{
-                      setState(() async{
+                      setState((){
                         nString=valueFirst.text;
                         print("-------------------------");
                         print("nString" + " " + nString);
@@ -274,11 +229,10 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                         print("-------------------------");
                         print(n);
 
-                        SharedPreferences pref=await SharedPreferences.getInstance();
-                        vT=pref.getDouble("tSgoraniya")*n;//Теплота сгорания введенного объема топлива ккал
-                        vElectro=pref.getDouble("nEl")*n;// по отношении к электроэнергии
-                        vGaz=pref.getDouble("nGaz")*n;// по отношении к Газу
-                        vUgol=pref.getDouble("nUgol")*n;// по отношении к Углю
+                        vT=vT1*n;//Теплота сгорания введенного объема топлива ккал
+                        vElectro=vElectro1*n;// по отношении к электроэнергии
+                        vGaz=vGaz1*n;// по отношении к Газу
+                        vUgol=vUgol1*n;// по отношении к Углю
                       });
                     }
                   }

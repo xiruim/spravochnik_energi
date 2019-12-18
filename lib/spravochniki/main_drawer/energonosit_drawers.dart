@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spravochnik_energi/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
 
 
 class EnergonositDrawer extends StatefulWidget {
@@ -18,7 +19,7 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
   TextEditingController valueName =
   TextEditingController(); //контроллер для сохранения наименования величины вводимого значения
 
-  String nameValue="Выберите энергоноситель"; double tSgoraniya;
+//  String nameValue="Выберите энергоноситель"; double tSgoraniya;
   String gaz= "Газ природный, м3"; double valGaz= 8000;//Кол-во для получения 1кВт
   String drova="Дрова, кг"; double valDrova = 3400; //Кол-во для получения 1кВт
   String pellet="Пеллеты, кг"; double valPellet = 4100; //Кол-во для получения 1кВт
@@ -51,6 +52,20 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
 
   Widget getComponent(String valName, double val, double kEl, double kGaz, double kUgol){
 
+  void prisvoen ()async{
+    SharedPreferences pref=await SharedPreferences.getInstance();
+    await pref.setString("nameValue", valName);
+    await pref.setDouble("tSgoraniya", val);
+    await pref.setDouble("nEl", kEl);
+    await pref.setDouble("nGaz", kGaz);
+    await pref.setDouble("nUgol", kUgol);
+
+    print("111111111111111111111111111111111");
+    print("pref.getString nameValue" + " " + pref.getString("nameValue"));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> SpravEnergonositel()));
+
+
+  }
 
   return Container(
     width: 250,
@@ -72,18 +87,20 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
       ),
       onPressed: () {
 
-        setState(() async{
-          SharedPreferences pref=await SharedPreferences.getInstance();
-          await pref.setString("nameValue", valName);
-          await pref.setDouble("tSgoraniya", val);
-          await pref.setDouble("nEl", kEl);
-          await pref.setDouble("nGaz", kGaz);
-          await pref.setDouble("nUgol", kUgol);
 
-          print("-------------------------");
-          print("nameValue" + " " + pref.getString("nameValue"));
+        setState(() {
+          prisvoen();
+//          SharedPreferences pref=await SharedPreferences.getInstance();
+//          await pref.setString("nameValue", valName);
+//          await pref.setDouble("tSgoraniya", val);
+//          await pref.setDouble("nEl", kEl);
+//          await pref.setDouble("nGaz", kGaz);
+//          await pref.setDouble("nUgol", kUgol);
+//
+//          print("111111111111111111111111111111111");
+//          print("nameValue" + " " + pref.getString("nameValue"));
 
-          Navigator.pop(context);// закрывает выпадающее меню
+//          Navigator.pop(context);// закрывает выпадающее меню
         });
       },
 
