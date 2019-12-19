@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_drawer/energonosit_drawers.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class SpravEnergonositel extends StatefulWidget {
   @override
@@ -74,8 +75,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   double height_tabl = 70; //высота ячейки таблицы
 
   // ---переменные для вывода данных
-  double vT,
-      vT1; //Выделяемое тепло при затрате определенного кол-ва топлива. кКал
+  double vT,vT1; //Выделяемое тепло при затрате определенного кол-ва топлива. кКал
   double vElectro, vElectro1; //выводит данные по отношению к ЭЭ
   double vGaz, vGaz1; //  выводит данные по отношению к природному газу
   double vUgol, vUgol1; //выводит данные по отношению к уголь
@@ -92,11 +92,14 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
     return Scaffold(
       endDrawer: EnergonositDrawer(),
       key: _scaffoldKey,
-      appBar: AppBar(
+      appBar: GradientAppBar(
         title: Text(
           "Калькулятор различных видов топлива",
           maxLines: 10,
         ),
+        backgroundColorStart: Colors.deepOrange,
+        backgroundColorEnd: Colors.deepOrangeAccent,
+
         leading: new IconButton(
             icon: new Icon(
               Icons.arrow_back,
@@ -104,26 +107,58 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             ),
             onPressed: () => Navigator.of(context).pop()),
       ),
-      body: ListView(
-        children: <Widget>[
-          Table(
-            border: TableBorder.all(),
+      body: Container(
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.all(3),
+        decoration:
+        BoxDecoration(
+            color: Colors.blueGrey,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 2),
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.2,  0.9],
+                colors: [Colors.deepOrangeAccent,  Colors.blue]
+            )
+        ),
+        child: ListView(
+          children: <Widget>[
+            Table(
+              border: TableBorder.all(),
 //            defaultVerticalAlignment:
 //            TableCellVerticalAlignment.top,//базовая линия таблицы
-            defaultColumnWidth: FixedColumnWidth(50.0),
-            children: [
-              TableRow(//первая строка таблицы
-                  children: <TableCell>[
+              defaultColumnWidth: FixedColumnWidth(50.0),
+              children: [
+                TableRow(//первая строка таблицы
+                    children: <TableCell>[
 //                TableCell(
 //                   child: Icon(Icons.wifi_tethering),
 //                ),
-                TableCell(
+                  TableCell(
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
-                  child: Container(
-                    height: height_tabl,
+                    child: Container(
+                      height: height_tabl,
+                      child: Text(
+                        "Энергоноситель",
+                        textScaleFactor: 1.5,
+                        textAlign: TextAlign.center,
+
+
+
+                        style: TextStyle(
+
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black87),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+//                  height: height_tabl, //высота строки
                     child: Text(
-                      "Энергоноситель",
+                      "Количество",
                       textScaleFactor: 1.5,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -132,278 +167,282 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                           color: Colors.indigo),
                     ),
                   ),
-                ),
-                TableCell(
+                ]),
+                TableRow(//вторая строка таблицы
+                    children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                  TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      margin: EdgeInsets.all(3),
+                      decoration:
+                      BoxDecoration(
+                          color: Colors.blueGrey,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(width: 2),
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0.2, 0.3, 0.9],
+                              colors: [Colors.deepOrange, Colors.yellow, Colors.blue]
+                          )
+                      ),
+                      child: RaisedButton(
+//                    padding: EdgeInsets.all(3.0),
+
+                        color: Colors.transparent,
+//                    highlightElevation: height_tabl-2,
+                        child: Text(
+                          nameValue,
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87),
+                        ),
+                        onPressed: () {
+                          print("rrrrrrrrrrrrrrrrrr");
+                          print("nameValue" + " " + nameValue);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EnergonositDrawer()));
+                        },
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    child: TextFormField(
+                      controller: valueFirst,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.deepOrange),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(15.0),
+                        hintText: "Введите значение",
+
+                      ),
+//                    textCapitalization: TextCapitalization.none,
+                    ),
+                  ),
+                ]),
+              ],
+            ),
+            Container(
+              width: 250,
+              height: 70,
+              color: Colors.white30,
+              child: Container(
+                width: 230,
+                height: 50,
+                margin: EdgeInsets.all(15),
+                color: Colors.black12,
+                child: RaisedButton(
+                  elevation:
+                      3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
+                  color: Colors.tealAccent,
                   child: Text(
-                    "Количество",
+                    "Расчитать",
                     textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
                         color: Colors.indigo),
                   ),
+                  onPressed: () {
+                    if (nameValue == "Выберите энергоноситель") {
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: Text(
+                            "Нажмите в верхнем правом углу меню и выберите энергоноситель"),
+                      ));
+                    } else {
+                      if (valueFirst.text == "") {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text(
+                              "Вы не ввели кол-во, Пожалуйста введите кол-во"),
+                        ));
+                      } else {
+                        setState(() {
+                          nString = valueFirst.text;
+                          print("-------------------------");
+                          print("nString" + " " + nString);
+                          n = double.parse(nString);
+                          print("-------------------------");
+                          print(n);
+
+                          vT = vT1 *
+                              n; //Теплота сгорания введенного объема топлива ккал
+                          vElectro =
+                              vElectro1 * n; // по отношении к электроэнергии
+                          vGaz = vGaz1 * n; // по отношении к Газу
+                          vUgol = vUgol1 * n; // по отношении к Углю
+                        });
+                      }
+                    }
+                  },
                 ),
-              ]),
-              TableRow(//вторая строка таблицы
-                  children: <TableCell>[
+              ),
+            ),
+            Table(
+              //вторая таблица с результатами
+              border: TableBorder.all(),
+//            defaultVerticalAlignment:
+//            TableCellVerticalAlignment.top,//базовая линия таблицы
+
+              defaultColumnWidth: FixedColumnWidth(50.0),
+              children: [
+                TableRow(//первая строка таблицы
+
+                    children: <TableCell>[
 //                TableCell(
 //                   child: Icon(Icons.wifi_tethering),
 //                ),
-                TableCell(
+                  TableCell(
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
-                  child: RaisedButton(
-//                    padding: EdgeInsets.all(3.0),
-                    
-                    color: Colors.blue,
-//                    highlightElevation: height_tabl-2,
+                    child: Container(
+                      height: height_tabl,
+                      child: Text(
+                        "Теплота сгорания введенного объема топлива, кКал",
+                        textScaleFactor: 1.0,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black87),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+//                  height: height_tabl, //высота строки
                     child: Text(
-                      nameValue,
+                      vT.toString(),
                       textScaleFactor: 1.5,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.deepOrange),
+                          color: Colors.indigo),
                     ),
-                    onPressed: () {
-                      print("rrrrrrrrrrrrrrrrrr");
-                      print("nameValue" + " " + nameValue);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EnergonositDrawer()));
-                    },
                   ),
-                ),
-                TableCell(
-                  child: TextFormField(
-                    controller: valueFirst,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.deepOrange),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(15.0),
-                      hintText: "Введите значение",
+                ]),
+                TableRow(//
 
+                    children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                  TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                    child: Container(
+                      height: height_tabl,
+                      child: Text(
+                        "Электроэнергии для выработки этого же кол-ва тепла необходимо затратить, кВт",
+                        textScaleFactor: 1.0,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black87),
+                      ),
                     ),
-//                    textCapitalization: TextCapitalization.none,
                   ),
-                ),
-              ]),
-            ],
-          ),
-          Container(
-            width: 250,
-            height: 70,
-            color: Colors.white30,
-            child: Container(
-              width: 230,
-              height: 50,
-              margin: EdgeInsets.all(15),
-              color: Colors.black12,
-              child: RaisedButton(
-                elevation:
-                    3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-                color: Colors.tealAccent,
-                child: Text(
-                  "Расчитать",
-                  textScaleFactor: 1.5,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.indigo),
-                ),
-                onPressed: () {
-                  if (nameValue == "Выберите энергоноситель") {
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
-                      content: Text(
-                          "Нажмите в верхнем правом углу меню и выберите энергоноситель"),
-                    ));
-                  } else {
-                    if (valueFirst.text == "") {
-                      _scaffoldKey.currentState.showSnackBar(SnackBar(
-                        content: Text(
-                            "Вы не ввели кол-во, Пожалуйста введите кол-во"),
-                      ));
-                    } else {
-                      setState(() {
-                        nString = valueFirst.text;
-                        print("-------------------------");
-                        print("nString" + " " + nString);
-                        n = double.parse(nString);
-                        print("-------------------------");
-                        print(n);
+                  TableCell(
+//                  height: height_tabl, //высота строки
+                    child: Text(
+                      vElectro.toString(),
+                      textScaleFactor: 1.5,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.indigo),
+                    ),
+                  ),
+                ]),
+                TableRow(//
 
-                        vT = vT1 *
-                            n; //Теплота сгорания введенного объема топлива ккал
-                        vElectro =
-                            vElectro1 * n; // по отношении к электроэнергии
-                        vGaz = vGaz1 * n; // по отношении к Газу
-                        vUgol = vUgol1 * n; // по отношении к Углю
-                      });
-                    }
-                  }
-                },
-              ),
+                    children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                  TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                    child: Container(
+                      height: height_tabl,
+                      child: Text(
+                        "Газа природного для выработки этого же кол-ва тепла необходимо затратить, м3",
+                        textScaleFactor: 1.0,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black87),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+//                  height: height_tabl, //высота строки
+                    child: Text(
+                      vGaz.toString(),
+                      textScaleFactor: 1.5,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.indigo),
+                    ),
+                  ),
+                ]),
+                TableRow(//первая строка таблицы
+
+                    children: <TableCell>[
+//                TableCell(
+//                   child: Icon(Icons.wifi_tethering),
+//                ),
+                  TableCell(
+//                    width: width_tabl,//ширина строки в данном случае не нужна
+//                  height: height_tabl, //высота строки
+                    child: Container(
+                      height: height_tabl,
+                      child: Text(
+                        "Угля каменного для выработки этого же кол-ва тепла необходимо затратить, кг",
+                        textScaleFactor: 1.0,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black87),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+//                  height: height_tabl, //высота строки
+                    child: Text(
+                      vUgol.toString(),
+                      textScaleFactor: 1.5,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.indigo),
+                    ),
+                  ),
+                ]),
+              ],
             ),
-          ),
-          Table(
-            //вторая таблица с результатами
-            border: TableBorder.all(),
-//            defaultVerticalAlignment:
-//            TableCellVerticalAlignment.top,//базовая линия таблицы
-
-            defaultColumnWidth: FixedColumnWidth(50.0),
-            children: [
-              TableRow(//первая строка таблицы
-
-                  children: <TableCell>[
-//                TableCell(
-//                   child: Icon(Icons.wifi_tethering),
-//                ),
-                TableCell(
-//                    width: width_tabl,//ширина строки в данном случае не нужна
-//                  height: height_tabl, //высота строки
-                  child: Container(
-                    height: height_tabl,
-                    child: Text(
-                      "Теплота сгорания введенного объема топлива, кКал",
-                      textScaleFactor: 1.0,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87),
-                    ),
-                  ),
-                ),
-                TableCell(
-//                  height: height_tabl, //высота строки
-                  child: Text(
-                    vT.toString(),
-                    textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.indigo),
-                  ),
-                ),
-              ]),
-              TableRow(//
-
-                  children: <TableCell>[
-//                TableCell(
-//                   child: Icon(Icons.wifi_tethering),
-//                ),
-                TableCell(
-//                    width: width_tabl,//ширина строки в данном случае не нужна
-//                  height: height_tabl, //высота строки
-                  child: Container(
-                    height: height_tabl,
-                    child: Text(
-                      "Электроэнергии для выработки этого же кол-ва тепла необходимо затратить, кВт",
-                      textScaleFactor: 1.0,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87),
-                    ),
-                  ),
-                ),
-                TableCell(
-//                  height: height_tabl, //высота строки
-                  child: Text(
-                    vElectro.toString(),
-                    textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.indigo),
-                  ),
-                ),
-              ]),
-              TableRow(//
-
-                  children: <TableCell>[
-//                TableCell(
-//                   child: Icon(Icons.wifi_tethering),
-//                ),
-                TableCell(
-//                    width: width_tabl,//ширина строки в данном случае не нужна
-//                  height: height_tabl, //высота строки
-                  child: Container(
-                    height: height_tabl,
-                    child: Text(
-                      "Газа природного для выработки этого же кол-ва тепла необходимо затратить, м3",
-                      textScaleFactor: 1.0,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87),
-                    ),
-                  ),
-                ),
-                TableCell(
-//                  height: height_tabl, //высота строки
-                  child: Text(
-                    vGaz.toString(),
-                    textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.indigo),
-                  ),
-                ),
-              ]),
-              TableRow(//первая строка таблицы
-
-                  children: <TableCell>[
-//                TableCell(
-//                   child: Icon(Icons.wifi_tethering),
-//                ),
-                TableCell(
-//                    width: width_tabl,//ширина строки в данном случае не нужна
-//                  height: height_tabl, //высота строки
-                  child: Container(
-                    height: height_tabl,
-                    child: Text(
-                      "Угля каменного для выработки этого же кол-ва тепла необходимо затратить, кг",
-                      textScaleFactor: 1.0,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87),
-                    ),
-                  ),
-                ),
-                TableCell(
-//                  height: height_tabl, //высота строки
-                  child: Text(
-                    vUgol.toString(),
-                    textScaleFactor: 1.5,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.indigo),
-                  ),
-                ),
-              ]),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -71,40 +71,48 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
     width: 250,
     height: 80,
     padding: EdgeInsets.all(5),
+    margin: EdgeInsets.all(3),
 
-    child: RaisedButton(
-      elevation:
-      3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-      color: Colors.greenAccent,
-      child: Text(
-        valName,
-        textScaleFactor: 1.5,
-        textAlign: TextAlign.left,
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-            color: Colors.indigo),
+    decoration:
+    BoxDecoration(
+      color: Colors.blueGrey,
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      border: Border.all(width: 2),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0.4, 0.9, 1],
+          colors: [Colors.blue, Colors.yellow, Colors.deepOrange]
+        )
+
+
+
       ),
-      onPressed: () {
+      child: RaisedButton(
+
+        elevation:
+        3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
+        color: Colors.blueGrey,
+        child: Text(
+          valName,
+          textScaleFactor: 1.5,
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              color: Colors.black87),
+        ),
+        onPressed: () {
 
 
-        setState(() {
-          prisvoen();
-//          SharedPreferences pref=await SharedPreferences.getInstance();
-//          await pref.setString("nameValue", valName);
-//          await pref.setDouble("tSgoraniya", val);
-//          await pref.setDouble("nEl", kEl);
-//          await pref.setDouble("nGaz", kGaz);
-//          await pref.setDouble("nUgol", kUgol);
-//
-//          print("111111111111111111111111111111111");
-//          print("nameValue" + " " + pref.getString("nameValue"));
+          setState(() {
+            prisvoen();
+          });
+        },
 
-//          Navigator.pop(context);// закрывает выпадающее меню
-        });
-      },
 
-    ),
+      ),
+
   );
 
 }
@@ -115,23 +123,47 @@ class _EnergonositDrawerState extends State<EnergonositDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
 
-      child: ListView(
-        //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
-        children: <Widget>[
-          Container(
-            height: 50,
-          ),
-          getComponent(electro, valElectro, 1, 0.108, 0.133),
-          getComponent(gaz, valGaz, 9.3, 1, 1.24),
-          getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
-          getComponent(ugol, valUgol, 7.5,  0.806, 1),
-          getComponent(drova, valDrova, 3.9, 0.452, 0.52),
-          getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
-          getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
-          getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
-          getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
-          getComponent(neft, valNeft, 12.2, 1.313, 1.627),
-        ],
+      child: Container(
+//        width: 250,
+//        height: 80,
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.all(3),
+
+        decoration:
+        BoxDecoration(
+            color: Colors.blueGrey,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            border: Border.all(width: 2),
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.2, 0.3, 0.9],
+                colors: [Colors.deepOrange, Colors.yellow, Colors.blue]
+            )
+        ),
+        child: ListView(
+          //mainAxisAlignment: MainAxisAlignment.start, // Разместит children как можно ближе к концу главной оси
+          children: <Widget>[
+            Container(
+              height: 50,
+
+            ),
+            getComponent(electro, valElectro, 1, 0.108, 0.133),
+            getComponent(gaz, valGaz, 9.3, 1, 1.24),
+            getComponent(gazSgigen, valGazSgigen, 12.5, 1.35, 1.667),
+            getComponent(ugol, valUgol, 7.5,  0.806, 1),
+            getComponent(drova, valDrova, 3.9, 0.452, 0.52),
+            getComponent(pellet, valPellet, 4.7, 0.513, 0.627),
+            getComponent(benzin, valBenzin, 12.2, 1.313, 1.627),
+            getComponent(dtoplivo, valDt, 11.9, 1.228, 1.587),
+            getComponent(mazut, valMazut, 11.2, 1.213, 1.493),
+            getComponent(neft, valNeft, 12.2, 1.313, 1.627),
+            Container(
+              height: 50,
+
+            ),
+          ],
+        ),
       ),
     );
   }

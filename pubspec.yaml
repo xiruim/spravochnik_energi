@@ -30,6 +30,7 @@ dependencies:
   charts_flutter: ^0.8.1
   gif_ani: ^0.0.2
   image: ^2.1.9
+  gradient_app_bar: ^0.0.1
 
 dev_dependencies:
   flutter_test:
