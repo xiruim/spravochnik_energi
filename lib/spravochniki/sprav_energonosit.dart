@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spravochnik_energi/menu_vibor_screei.dart';
 
 import 'main_drawer/energonosit_drawers.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
@@ -38,37 +39,37 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
     vGaz1 = pref.getDouble("nGaz"); // по отношении к Газу
     vUgol1 = pref.getDouble("nUgol"); // по отношении к Углю
 
-    print("222222222222222222222222222222222222222");
-    print("nameValue" + " " + nameValue);
-    print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
+//    print("222222222222222222222222222222222222222");
+//    print("nameValue" + " " + nameValue);
+//    print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
 
     setState(() {
-      print("3333333333333333333333333333333333333");
-      print("nameValue" + " " + nameValue);
-      print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
+//      print("3333333333333333333333333333333333333");
+//      print("nameValue" + " " + nameValue);
+//      print("pref.getString(nameValue)" + " " + pref.getString("nameValue"));
     });
   }
 
-  String gaz = "Газ природный, м3";
-  double valGaz = 8000; //Кол-во для получения 1кВт
-  String drova = "Дрова, кг";
-  double valDrova = 3400; //Кол-во для получения 1кВт
-  String pellet = "Пеллеты, кг";
-  double valPellet = 4100; //Кол-во для получения 1кВт
-  String ugol = "Уголь каменный, кг";
-  double valUgol = 6450; //Кол-во для получения 1кВт
-  String electro = "Электроэнергия, кВт/ч";
-  double valElectro = 864; //Кол-во для получения 1кВт
-  String dtoplivo = "Дизель, л";
-  double valDt = 10300; //Кол-во для получения 1кВт
-  String mazut = "Мазут, л";
-  double valMazut = 9700; //Кол-во для получения 1кВт
-  String neft = "Нефть, л";
-  double valNeft = 10500; //Кол-во для получения 1кВт
-  String benzin = "Бензин, л";
-  double valBenzin = 10500; //Кол-во для получения 1кВт
-  String gazSgigen = "Газ сжиженный, кг";
-  double valGazSgigen = 10800; //Кол-во для получения 1кВт
+//  String gaz = "Газ природный, м3";
+//  double valGaz = 8000; //Кол-во для получения 1кВт
+//  String drova = "Дрова, кг";
+//  double valDrova = 3400; //Кол-во для получения 1кВт
+//  String pellet = "Пеллеты, кг";
+//  double valPellet = 4100; //Кол-во для получения 1кВт
+//  String ugol = "Уголь каменный, кг";
+//  double valUgol = 6450; //Кол-во для получения 1кВт
+//  String electro = "Электроэнергия, кВт/ч";
+//  double valElectro = 864; //Кол-во для получения 1кВт
+//  String dtoplivo = "Дизель, л";
+//  double valDt = 10300; //Кол-во для получения 1кВт
+//  String mazut = "Мазут, л";
+//  double valMazut = 9700; //Кол-во для получения 1кВт
+//  String neft = "Нефть, л";
+//  double valNeft = 10500; //Кол-во для получения 1кВт
+//  String benzin = "Бензин, л";
+//  double valBenzin = 10500; //Кол-во для получения 1кВт
+//  String gazSgigen = "Газ сжиженный, кг";
+//  double valGazSgigen = 10800; //Кол-во для получения 1кВт
 
   //---переменные для таблицы
   double width_tabl = 200; //ширина ячейки таблицы
@@ -79,9 +80,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   double vElectro, vElectro1; //выводит данные по отношению к ЭЭ
   double vGaz, vGaz1; //  выводит данные по отношению к природному газу
   double vUgol, vUgol1; //выводит данные по отношению к уголь
-  double nEl; //коэф отношения к электроэнергии
-  double nGaz; //коэф отношения к газ
-  double nUgol; //коэф отношения к уголь
+//  double nEl; //коэф отношения к электроэнергии
+//  double nGaz; //коэф отношения к газ
+//  double nUgol; //коэф отношения к уголь
   double n = 1; // переменная для хранения вводимый объем
   String nString; // переменная для хранения вводимый объем в текстовом значении
 
@@ -105,7 +106,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => Navigator.of(context).pop()),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MenuViborScreen())),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(5),
@@ -151,7 +154,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
-                            color: Colors.black87),
+                            color: Colors.black87,
+                            height: 2.3 //расстояние от верхней границы до техста
+                           ),
                       ),
                     ),
                   ),
@@ -164,7 +169,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.indigo),
+                          color: Colors.black87,
+                          height: 2.3 //расстояние от верхней границы до техста
+                      ),
                     ),
                   ),
                 ]),
@@ -206,8 +213,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                               color: Colors.black87),
                         ),
                         onPressed: () {
-                          print("rrrrrrrrrrrrrrrrrr");
-                          print("nameValue" + " " + nameValue);
+//                          print("rrrrrrrrrrrrrrrrrr");
+//                          print("nameValue" + " " + nameValue);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -223,11 +230,10 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.deepOrange),
+                          color: Colors.black87,height: 2.3),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(15.0),
                         hintText: "Введите значение",
-
                       ),
 //                    textCapitalization: TextCapitalization.none,
                     ),
@@ -238,16 +244,28 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             Container(
               width: 250,
               height: 70,
-              color: Colors.white30,
-              child: Container(
-                width: 230,
-                height: 50,
-                margin: EdgeInsets.all(15),
-                color: Colors.black12,
+              margin: EdgeInsets.all(2),
+              decoration:
+              BoxDecoration(
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 2),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.2, 0.3, 0.9],
+                      colors: [Colors.deepOrange, Colors.yellow, Colors.blue]
+                  )
+              ),
+//              child: Container(
+//                width: 230,
+//                height: 50,
+//                margin: EdgeInsets.all(15),
+//                color: Colors.black12,
                 child: RaisedButton(
                   elevation:
                       3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
-                  color: Colors.tealAccent,
+                  color: Colors.transparent,
                   child: Text(
                     "Расчитать",
                     textScaleFactor: 1.5,
@@ -255,7 +273,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
-                        color: Colors.indigo),
+                        color: Colors.black87),
                   ),
                   onPressed: () {
                     if (nameValue == "Выберите энергоноситель") {
@@ -289,7 +307,7 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                     }
                   },
                 ),
-              ),
+//              ),
             ),
             Table(
               //вторая таблица с результатами
@@ -310,14 +328,17 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //                  height: height_tabl, //высота строки
                     child: Container(
                       height: height_tabl,
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         "Теплота сгорания введенного объема топлива, кКал",
                         textScaleFactor: 1.0,
                         textAlign: TextAlign.left,
+
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
-                            color: Colors.black87),
+                            color: Colors.black87,
+                        ),
                       ),
                     ),
                   ),
@@ -330,7 +351,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.indigo),
+                          color: Colors.black87,
+                      height: 2.5),
                     ),
                   ),
                 ]),
@@ -344,7 +366,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
                     child: Container(
-                      height: height_tabl,
+                      height: height_tabl+10,
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         "Электроэнергии для выработки этого же кол-ва тепла необходимо затратить, кВт",
                         textScaleFactor: 1.0,
@@ -365,7 +388,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.indigo),
+                          color: Colors.black87,
+                          height: 2.5
+                      ),
                     ),
                   ),
                 ]),
@@ -379,7 +404,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
                     child: Container(
-                      height: height_tabl,
+                      height: height_tabl+10,
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         "Газа природного для выработки этого же кол-ва тепла необходимо затратить, м3",
                         textScaleFactor: 1.0,
@@ -400,7 +426,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.indigo),
+                          color: Colors.black87,
+                          height: 2.5),
                     ),
                   ),
                 ]),
@@ -414,7 +441,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
 //                    width: width_tabl,//ширина строки в данном случае не нужна
 //                  height: height_tabl, //высота строки
                     child: Container(
-                      height: height_tabl,
+                      height: height_tabl+10,
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         "Угля каменного для выработки этого же кол-ва тепла необходимо затратить, кг",
                         textScaleFactor: 1.0,
@@ -435,7 +463,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.indigo),
+                          color: Colors.black87,
+                          height: 2.5),
                     ),
                   ),
                 ]),
