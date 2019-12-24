@@ -99,6 +99,57 @@ class _MenuViborScreenState extends State<MenuViborScreen> {
                 ],
               ),
             ]),
+            Column(children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Positioned(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: color_border,width: width_border),
+                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
+                        //color: color_borderRadius,
+                      ),
+                      width: width_contaner,
+                      height: height_contaner,
+                      margin: EdgeInsets.all(1), //отступы со всех сторон
+                      child: FittedBox(
+                        child: Image.asset("assets/xraschet-secheniya-provoda-po-diametru.jpg.pagespeed.ic.hKDCt7ETiy.jpg", width: 22,height: 25,alignment: Alignment.bottomCenter,),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: color_border,width: width_border),
+                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
+                        //color: color_borderRadius,
+                      ),
+                      width: width_contaner,
+                      height: height_contaner,
+                      margin: EdgeInsets.all(1), //отступы со всех сторон
+                      child: InkWell(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Расчет сечения проводника по его диаметру или диаметра по сечению",
+                            style: TextStyle(inherit: true,/*color: Colors.black.withOpacity(0.5), при использовании Paint color не использовать*/
+                              fontSize: 20,
+                              foreground: Paint()..style=PaintingStyle.stroke..strokeWidth=2..color=Colors.purple[700],// Делает обводку и границы буквы
+                            ),
+
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SpravEnergonositel()));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
           ],
         ));
   }
