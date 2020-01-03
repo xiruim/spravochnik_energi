@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:spravochnik_energi/main.dart';
+import 'package:spravochnik_energi/spravochniki/sechenie_and_diametr_provodnika.dart';
 import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
 
 class MenuViborScreen extends StatefulWidget {
@@ -142,7 +143,7 @@ class _MenuViborScreenState extends State<MenuViborScreen> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SpravEnergonositel()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SechenieAndDiametrProvodnika()));
                         },
                       ),
                     ),
