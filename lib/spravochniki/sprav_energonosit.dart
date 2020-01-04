@@ -48,26 +48,6 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
     });
   }
 
-//  String gaz = "Газ природный, м3";
-//  double valGaz = 8000; //Кол-во для получения 1кВт
-//  String drova = "Дрова, кг";
-//  double valDrova = 3400; //Кол-во для получения 1кВт
-//  String pellet = "Пеллеты, кг";
-//  double valPellet = 4100; //Кол-во для получения 1кВт
-//  String ugol = "Уголь каменный, кг";
-//  double valUgol = 6450; //Кол-во для получения 1кВт
-//  String electro = "Электроэнергия, кВт/ч";
-//  double valElectro = 864; //Кол-во для получения 1кВт
-//  String dtoplivo = "Дизель, л";
-//  double valDt = 10300; //Кол-во для получения 1кВт
-//  String mazut = "Мазут, л";
-//  double valMazut = 9700; //Кол-во для получения 1кВт
-//  String neft = "Нефть, л";
-//  double valNeft = 10500; //Кол-во для получения 1кВт
-//  String benzin = "Бензин, л";
-//  double valBenzin = 10500; //Кол-во для получения 1кВт
-//  String gazSgigen = "Газ сжиженный, кг";
-//  double valGazSgigen = 10800; //Кол-во для получения 1кВт
 
   //---переменные для таблицы
   double width_tabl = 200; //ширина ячейки таблицы
@@ -78,9 +58,6 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
   double vElectro, vElectro1; //выводит данные по отношению к ЭЭ
   double vGaz, vGaz1; //  выводит данные по отношению к природному газу
   double vUgol, vUgol1; //выводит данные по отношению к уголь
-//  double nEl; //коэф отношения к электроэнергии
-//  double nGaz; //коэф отношения к газ
-//  double nUgol; //коэф отношения к уголь
   double n = 1; // переменная для хранения вводимый объем
   String nString; // переменная для хранения вводимый объем в текстовом значении
 
@@ -94,6 +71,8 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
       appBar: GradientAppBar(
         title: Text(
           "Калькулятор различных видов топлива",
+          textScaleFactor: 0.8,
+          textAlign: TextAlign.center,
           maxLines: 10,
         ),
         backgroundColorStart: Colors.deepOrange,

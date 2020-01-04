@@ -51,6 +51,8 @@ class _SechenieAndDiametrProvodnikaState
           !isList
               ? "Калькулятор сечения проводника по его диаметру"
               : "Калькулятор диаметра проводника по его сечению",
+          textScaleFactor: 0.8,
+          textAlign: TextAlign.center,
           maxLines: 10,
         ),
         backgroundColorStart: Colors.lightBlueAccent,
@@ -103,14 +105,14 @@ class _SechenieAndDiametrProvodnikaState
                         !isList
                             ? "Наименование величины по которой будем расчитывать сечение"
                             : "Наименование величины по которой будем расчитывать диаметр",
-                        textScaleFactor: 1.5,
+                        textScaleFactor: 0.9,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontStyle: FontStyle.italic,
                             color: Colors.black87,
                             height:
-                                2.3 //расстояние от верхней границы до техста
+                                1.3 //расстояние от верхней границы до техста
                             ),
                       ),
                     ),
@@ -254,7 +256,7 @@ class _SechenieAndDiametrProvodnikaState
                       height: height_tabl + 10,
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        !isList ? "Сечение будет, мм2" : "Диаметр будет, мм",
+                        !isList ? "Сечение =  , мм2" : "Диаметр =  , мм",
                         textScaleFactor: 1.3,
                         textAlign: TextAlign.left,
                         style: TextStyle(
