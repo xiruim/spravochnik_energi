@@ -282,6 +282,184 @@ class _SechenieAndDiametrProvodnikaState
                 ]),
               ],
             ),
+            Container(
+              width: 250,
+              height: 45,
+              margin: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+//                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 2),
+//                  gradient: LinearGradient(
+//                      begin: Alignment.topLeft,
+//                      end: Alignment.bottomRight,
+//                      stops: [0.2,  0.9],
+//                      colors: [Colors.indigo,  Colors.blueAccent])
+                      ),
+              child: Text(
+                "Пропускная способность кабеля или провода для скрытой электропроводки",
+                textScaleFactor: 1.2,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.black87),
+              ),
+//              ),
+            ),
+            Table(
+              //вторая таблица с результатами
+              border: TableBorder.all(),
+              defaultColumnWidth: FixedColumnWidth(50.0),
+              children: [
+                TableRow(//первая строка таблицы
+
+                    children: <TableCell>[
+                      TableCell(
+                        child: Container(
+                          height: height_tabl,
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "Медь",
+                            textScaleFactor: 1.3,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87,
+                                height: 2.3
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          height: height_tabl,
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "220В",
+                            textScaleFactor: 1.3,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87,
+                                height: 2.3
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          height: height_tabl,
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "380В",
+                            textScaleFactor: 1.3,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87,
+                                height: 2.3
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                TableRow(//первая строка таблицы
+
+                    children: <TableCell>[
+                      TableCell(
+                        child: Container(
+                          height: height_tabl,
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "Ток, А",
+                            textScaleFactor: 1.3,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87,
+                                height: 2.3
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          !isList ? d.toString() : s.toString(),
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                              height: 2.5),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          !isList ? d.toString() : s.toString(),
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                              height: 2.5),
+                        ),
+                      ),
+                    ]),
+                TableRow(
+
+                    children: <TableCell>[
+                      TableCell(
+                        child: Container(
+                          height: height_tabl,
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "Мощность, кВт",
+                            textScaleFactor: 1.3,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black87,
+//                                height: 2.3
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          !isList ? d.toString() : s.toString(),
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                              height: 2.5),
+                        ),
+                      ),
+                      TableCell(
+                        child: Text(
+                          !isList ? d.toString() : s.toString(),
+                          textScaleFactor: 1.5,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.black87,
+                              height: 2.5),
+                        ),
+                      ),
+                    ]),
+
+              ],
+            ),
           ],
         ),
       ),
