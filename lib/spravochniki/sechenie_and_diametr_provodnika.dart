@@ -32,14 +32,54 @@ class _SechenieAndDiametrProvodnikaState
   String
       nString; // текстовая переменная для перевода введенных значений в число
 
+  Widget tablLeftComponent(
+      String nameTablLeftComp, double h_shript, double h_megduStrok) {
+    return TableCell(
+      child: Container(
+        height: height_tabl,
+        padding: EdgeInsets.all(8),
+        child: Text(
+          nameTablLeftComp,
+          textScaleFactor: h_shript,
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              color: Colors.black87,
+              height: h_megduStrok),
+        ),
+      ),
+    );
+  }
+
+  Widget tablCentrRightComponent(
+      String nameTablCentrRightComp, double h_shript, double h_megduStrok) {
+    return TableCell(
+      child: Container(
+        height: height_tabl,
+        padding: EdgeInsets.all(8),
+        child: Text(
+          nameTablCentrRightComp,
+          textScaleFactor: h_shript,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              color: Colors.black87,
+              height: h_megduStrok),
+        ),
+      ),
+    );
+  }
+
   void diametr() {
     s = double.parse(nString);
-    d = (sqrt(s * 4 / 3.14));//вычисляем корень квадрятный
+    d = (sqrt(s * 4 / 3.14)); //вычисляем корень квадрятный
   }
 
   void sechenie() {
     d = double.parse(nString);
-    s = ((3.14 * (pow(d, 2))) / 4);// расчет с возведением в степень
+    s = ((3.14 * (pow(d, 2))) / 4); // расчет с возведением в степень
   }
 
   @override
@@ -72,7 +112,7 @@ class _SechenieAndDiametrProvodnikaState
               setState(() {
                 isList =
                     !isList; //при нажатии на иконку isList меняет значение на противоположное
-                d=s=0;//обнуяляем значения
+                d = s = 0; //обнуяляем значения
               });
             },
           ),
@@ -92,64 +132,23 @@ class _SechenieAndDiametrProvodnikaState
                 colors: [Colors.lightBlueAccent, Colors.indigo])),
         child: ListView(
           children: <Widget>[
+            //-----------Таблица вводных данных---------------
             Table(
               border: TableBorder.all(),
               defaultColumnWidth: FixedColumnWidth(50.0),
               children: [
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
-                  TableCell(
-                    child: Container(
-                      height: height_tabl,
-                      child: Text(
-                        !isList
-                            ? "Наименование величины по которой будем расчитывать сечение"
-                            : "Наименование величины по которой будем расчитывать диаметр",
-                        textScaleFactor: 0.9,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black87,
-                            height:
-                                1.3 //расстояние от верхней границы до техста
-                            ),
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      !isList ? "Значение в мм" : "Значение в мм2",
-                      textScaleFactor: 1.5,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                          height: 2.3 //расстояние от верхней границы до техста
-                          ),
-                    ),
-                  ),
+                  tablLeftComponent("Наименование величины", 1.3, 1.5),
+                  tablCentrRightComponent(
+                      !isList ? "Значение в мм" : "Значение в мм2", 1.3, 2.3)
                 ]),
                 TableRow(//вторая строка таблицы
                     children: <TableCell>[
-                  TableCell(
-                    child: Container(
-                      height: height_tabl,
-                      child: Text(
-                        !isList ? "Диаметр проводника" : "Сечение проводника",
-                        textScaleFactor: 1.5,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black87,
-                            height:
-                                1.3 //расстояние от верхней границы до техста
-                            ),
-                      ),
-                    ),
-                  ),
+                  tablLeftComponent(
+                      !isList ? "Диаметр проводника" : "Сечение проводника",
+                      1.3,
+                      2.3),
                   TableCell(
                     child: TextFormField(
                       controller: valueFirst,
@@ -168,6 +167,7 @@ class _SechenieAndDiametrProvodnikaState
                 ]),
               ],
             ),
+            //------- кнопка расчета ------------
             Container(
               width: 250,
               height: 70,
@@ -179,8 +179,8 @@ class _SechenieAndDiametrProvodnikaState
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      stops: [0.2,  0.9],
-                      colors: [Colors.indigo,  Colors.blueAccent])),
+                      stops: [0.2, 0.9],
+                      colors: [Colors.indigo, Colors.blueAccent])),
               child: RaisedButton(
                 elevation:
                     3.0, //убераем у нее тень (или цифрами указывается сколько пикселей с верху вниз убрать тень)
@@ -210,6 +210,7 @@ class _SechenieAndDiametrProvodnikaState
               ),
 //              ),
             ),
+            //---------- таблица выводных данных -------------
             Table(
               //вторая таблица с результатами
               border: TableBorder.all(),
@@ -218,84 +219,44 @@ class _SechenieAndDiametrProvodnikaState
                 TableRow(//первая строка таблицы
 
                     children: <TableCell>[
-                  TableCell(
-                    child: Container(
-                      height: height_tabl,
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        !isList ? "При диаметре, мм" : "При сечении, мм2",
-                        textScaleFactor: 1.3,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                            height: 2.3
-                        ),
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      !isList ? d.toString() : s.toString(),
-                      textScaleFactor: 1.5,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                          height: 2.5),
-                    ),
-                  ),
+                  tablLeftComponent(
+                      !isList ? "При диаметре, мм" : "При сечении, мм2",
+                      1.3,
+                      2.3),
+                  tablCentrRightComponent(
+                      !isList ? d.toStringAsFixed(2) : s.toStringAsFixed(2),
+                      1.3,
+                      2.3)
                 ]),
                 TableRow(//
 
                     children: <TableCell>[
-                  TableCell(
-                    child: Container(
-                      height: height_tabl + 10,
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        !isList ? "Сечение =  , мм2" : "Диаметр =  , мм",
-                        textScaleFactor: 1.3,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.black87,
-                            height: 2.3),
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      !isList ? s.toStringAsFixed(2) : d.toStringAsFixed(2),//выводим значения и ограничиваем кол-во знаков после запятой =2
-                      textScaleFactor: 1.5,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                          height: 2.5),
-                    ),
-                  ),
+                  tablLeftComponent(
+                      !isList ? "Сечение =  , мм2" : "Диаметр =  , мм",
+                      1.3,
+                      2.3),
+                  tablCentrRightComponent(
+                      !isList ? s.toStringAsFixed(2) : d.toStringAsFixed(2),
+                      1.3,
+                      2.3) //выводим значения и ограничиваем кол-во знаков после запятой =2
                 ]),
               ],
             ),
+            //-------- контейнер с названием таблицы пропускной способности ----------
             Container(
               width: 250,
               height: 45,
               margin: EdgeInsets.all(2),
               decoration: BoxDecoration(
-                  color: Colors.transparent,
+                color: Colors.transparent,
 //                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 2),
+                border: Border.all(width: 2),
 //                  gradient: LinearGradient(
 //                      begin: Alignment.topLeft,
 //                      end: Alignment.bottomRight,
 //                      stops: [0.2,  0.9],
 //                      colors: [Colors.indigo,  Colors.blueAccent])
-                      ),
+              ),
               child: Text(
                 "Пропускная способность кабеля или провода для скрытой электропроводки",
                 textScaleFactor: 1.2,
@@ -307,157 +268,35 @@ class _SechenieAndDiametrProvodnikaState
               ),
 //              ),
             ),
+            //-------- таблица пропускной способности проводников -------
             Table(
               //вторая таблица с результатами
               border: TableBorder.all(),
               defaultColumnWidth: FixedColumnWidth(50.0),
               children: [
                 TableRow(//первая строка таблицы
-
+                    //-------------строка наименований по меди -----------
                     children: <TableCell>[
-                      TableCell(
-                        child: Container(
-                          height: height_tabl,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "Медь",
-                            textScaleFactor: 1.3,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87,
-                                height: 2.3
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Container(
-                          height: height_tabl,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "220В",
-                            textScaleFactor: 1.3,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87,
-                                height: 2.3
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Container(
-                          height: height_tabl,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "380В",
-                            textScaleFactor: 1.3,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87,
-                                height: 2.3
-                            ),
-                          ),
-                        ),
-                      ),
-                    ]),
+                      tablLeftComponent( !isList ?"Медь": "Алюминий", 1.3, 2.3),
+                  tablCentrRightComponent( "220В", 1.3, 2.3),
+                      tablCentrRightComponent( "380В", 1.3, 2.3),
+                ]),
                 TableRow(//первая строка таблицы
 
                     children: <TableCell>[
-                      TableCell(
-                        child: Container(
-                          height: height_tabl,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "Ток, А",
-                            textScaleFactor: 1.3,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87,
-                                height: 2.3
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          !isList ? d.toString() : s.toString(),
-                          textScaleFactor: 1.5,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black87,
-                              height: 2.5),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          !isList ? d.toString() : s.toString(),
-                          textScaleFactor: 1.5,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black87,
-                              height: 2.5),
-                        ),
-                      ),
-                    ]),
-                TableRow(
-
-                    children: <TableCell>[
-                      TableCell(
-                        child: Container(
-                          height: height_tabl,
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "Мощность, кВт",
-                            textScaleFactor: 1.3,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.black87,
-//                                height: 2.3
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          !isList ? d.toString() : s.toString(),
-                          textScaleFactor: 1.5,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black87,
-                              height: 2.5),
-                        ),
-                      ),
-                      TableCell(
-                        child: Text(
-                          !isList ? d.toString() : s.toString(),
-                          textScaleFactor: 1.5,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black87,
-                              height: 2.5),
-                        ),
-                      ),
-                    ]),
-
+                      tablLeftComponent( "Ток, А", 1.3, 2.3),
+                      tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
+                          1.3, 2.3),
+                      tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
+                          1.3, 2.3),
+                ]),
+                TableRow(children: <TableCell>[
+                  tablLeftComponent( "Мощность, кВт", 1.3, 2.3),
+                  tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
+                      1.3, 2.3),
+                  tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
+                      1.3, 2.3),
+                ]),
               ],
             ),
           ],
