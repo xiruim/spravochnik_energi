@@ -31,7 +31,12 @@ class _SechenieAndDiametrProvodnikaState
   double d = 0; //диаметр проводника в мм
   String
       nString; // текстовая переменная для перевода введенных значений в число
+  double i =0; //ток А
+  double p=0; //активная мощность кВт
+  double uf=220;// фазное напряжение, В
+  double ul=380;// линейное напряжение, В
 
+  //повторяющийся виджет столбцов с лева в таблице
   Widget tablLeftComponent(
       String nameTablLeftComp, double h_shript, double h_megduStrok) {
     return TableCell(
@@ -52,6 +57,9 @@ class _SechenieAndDiametrProvodnikaState
     );
   }
 
+
+
+  //повторяющийся виджет столбцов по середине и справа в таблице
   Widget tablCentrRightComponent(
       String nameTablCentrRightComp, double h_shript, double h_megduStrok) {
     return TableCell(
@@ -80,6 +88,19 @@ class _SechenieAndDiametrProvodnikaState
   void sechenie() {
     d = double.parse(nString);
     s = ((3.14 * (pow(d, 2))) / 4); // расчет с возведением в степень
+  }
+
+  //пропускная способность по меди
+  void _cuprum(s){
+
+    switch(s*10){
+      case 5:
+        i=6;
+        break;
+      case 75:
+        i=6;
+        break;
+    }
   }
 
   @override
@@ -245,60 +266,30 @@ class _SechenieAndDiametrProvodnikaState
             //-------- контейнер с названием таблицы пропускной способности ----------
             Container(
               width: 250,
-              height: 45,
-              margin: EdgeInsets.all(2),
+              height: 500,
+              margin: EdgeInsets.all(0),
               decoration: BoxDecoration(
                 color: Colors.transparent,
-//                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(width: 2),
-//                  gradient: LinearGradient(
-//                      begin: Alignment.topLeft,
-//                      end: Alignment.bottomRight,
-//                      stops: [0.2,  0.9],
-//                      colors: [Colors.indigo,  Colors.blueAccent])
+                border: Border.all(width: 1),
               ),
-              child: Text(
-                "Пропускная способность кабеля или провода для скрытой электропроводки",
-                textScaleFactor: 1.2,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black87),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
+                decoration: BoxDecoration(
+                  border: Border.all(color: color_border,width: width_border),
+                  borderRadius: BorderRadius.all(Radius.circular(radius_border)),
+                  //color: color_borderRadius,
+                ),
+                width: width_contaner,
+                height: height_contaner,
+                margin: EdgeInsets.all(1), //отступы со всех сторон
+                child: FittedBox(
+                  child: Image.asset("assets/propusknaiya_sposobnost.jpg", alignment: Alignment.bottomCenter,),
+                  fit: BoxFit.fill,
+                ),
               ),
 //              ),
             ),
             //-------- таблица пропускной способности проводников -------
-            Table(
-              //вторая таблица с результатами
-              border: TableBorder.all(),
-              defaultColumnWidth: FixedColumnWidth(50.0),
-              children: [
-                TableRow(//первая строка таблицы
-                    //-------------строка наименований по меди -----------
-                    children: <TableCell>[
-                      tablLeftComponent( !isList ?"Медь": "Алюминий", 1.3, 2.3),
-                  tablCentrRightComponent( "220В", 1.3, 2.3),
-                      tablCentrRightComponent( "380В", 1.3, 2.3),
-                ]),
-                TableRow(//первая строка таблицы
-
-                    children: <TableCell>[
-                      tablLeftComponent( "Ток, А", 1.3, 2.3),
-                      tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
-                          1.3, 2.3),
-                      tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
-                          1.3, 2.3),
-                ]),
-                TableRow(children: <TableCell>[
-                  tablLeftComponent( "Мощность, кВт", 1.3, 2.3),
-                  tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
-                      1.3, 2.3),
-                  tablCentrRightComponent(  !isList ? d.toString() : s.toString(),
-                      1.3, 2.3),
-                ]),
-              ],
-            ),
           ],
         ),
       ),
