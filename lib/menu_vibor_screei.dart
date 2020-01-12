@@ -12,21 +12,64 @@ class MenuViborScreen extends StatefulWidget {
   _MenuViborScreenState createState() => _MenuViborScreenState();
 }
 
-////----повторяющаяся функция контейнеров---------
-//Widget getComponent({
-//  Color colorFon = Colors.white,
-//}) {
-//  return Container(
-//    color: colorFon,
-//    width: 350,
-//    height: 50,
-//    margin: EdgeInsets.all(1), //отступы со всех сторон
-//    child: FittedBox(
-//      child: Image.asset("assets/116436902_energonositel.jpg"),
-//      fit: BoxFit.fill,
-//    ),
-//  );
-//}
+//повторяющийся виджет контейнеров с выбором нужного экрана
+Widget conteiner_obshii (BuildContext context,
+    String image,
+    String textNameScreen,
+    nameScreen
+    ){
+  return Column(children: <Widget>[
+    Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
+            decoration: BoxDecoration(
+              border: Border.all(color: color_border,width: width_border),
+              borderRadius: BorderRadius.all(Radius.circular(radius_border)),
+              //color: color_borderRadius,
+            ),
+            width: width_contaner,
+            height: height_contaner,
+            margin: EdgeInsets.all(1), //отступы со всех сторон
+            child: FittedBox(
+              child: Image.asset(image, width: 22,height: 25,alignment: Alignment.bottomCenter,),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Positioned(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
+            decoration: BoxDecoration(
+              border: Border.all(color: color_border,width: width_border),
+              borderRadius: BorderRadius.all(Radius.circular(radius_border)),
+              //color: color_borderRadius,
+            ),
+            width: width_contaner,
+            height: height_contaner,
+            margin: EdgeInsets.all(1), //отступы со всех сторон
+            child: InkWell(
+              child: RichText(
+                text: TextSpan(
+                  text: textNameScreen,
+                  style: TextStyle(inherit: true,/*color: Colors.black.withOpacity(0.5), при использовании Paint color не использовать*/
+                    fontSize: 20,
+                    foreground: Paint()..style=PaintingStyle.stroke..strokeWidth=2..color=Colors.purple[700],// Делает обводку и границы буквы
+                  ),
+
+                ),
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => nameScreen));
+              },
+            ),
+          ),
+        ),
+      ],
+    ),
+  ]);
+}
 
 
 //---переменные для padding
@@ -42,115 +85,19 @@ double width_contaner = 350;
 double height_contaner = 250;
 
 
-
 class _MenuViborScreenState extends State<MenuViborScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
           children: <Widget>[
-            Column(children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Positioned(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: color_border,width: width_border),
-                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
-                        //color: color_borderRadius,
-                      ),
-                      width: width_contaner,
-                      height: height_contaner,
-                      margin: EdgeInsets.all(1), //отступы со всех сторон
-                      child: FittedBox(
-                        child: Image.asset("assets/116436902_energonositel.jpg", width: 22,height: 25,alignment: Alignment.bottomCenter,),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: color_border,width: width_border),
-                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
-                        //color: color_borderRadius,
-                      ),
-                      width: width_contaner,
-                      height: height_contaner,
-                      margin: EdgeInsets.all(1), //отступы со всех сторон
-                      child: InkWell(
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Энергоносители - калькулятор энергоэффективностей разных видов топлива",
-                            style: TextStyle(inherit: true,/*color: Colors.black.withOpacity(0.5), при использовании Paint color не использовать*/
-                              fontSize: 20,
-                              foreground: Paint()..style=PaintingStyle.stroke..strokeWidth=2..color=Colors.purple[700],// Делает обводку и границы буквы
-                            ),
-
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SpravEnergonositel()));
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
-            Column(children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Positioned(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: color_border,width: width_border),
-                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
-                        //color: color_borderRadius,
-                      ),
-                      width: width_contaner,
-                      height: height_contaner,
-                      margin: EdgeInsets.all(1), //отступы со всех сторон
-                      child: FittedBox(
-                        child: Image.asset("assets/xraschet-secheniya-provoda-po-diametru.jpg.pagespeed.ic.hKDCt7ETiy.jpg", width: 22,height: 25,alignment: Alignment.bottomCenter,),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: horisont_padd, vertical: vertical_padd),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: color_border,width: width_border),
-                        borderRadius: BorderRadius.all(Radius.circular(radius_border)),
-                        //color: color_borderRadius,
-                      ),
-                      width: width_contaner,
-                      height: height_contaner,
-                      margin: EdgeInsets.all(1), //отступы со всех сторон
-                      child: InkWell(
-                        child: RichText(
-                          text: TextSpan(
-                            text: "Расчет сечения проводника по его диаметру или диаметра по сечению",
-                            style: TextStyle(inherit: true,/*color: Colors.black.withOpacity(0.5), при использовании Paint color не использовать*/
-                              fontSize: 20,
-                              foreground: Paint()..style=PaintingStyle.stroke..strokeWidth=2..color=Colors.purple[700],// Делает обводку и границы буквы
-                            ),
-
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SechenieAndDiametrProvodnika()));
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
+            conteiner_obshii(context, "assets/116436902_energonositel.jpg",
+                "Энергоносители - калькулятор энергоэффективностей разных видов топлива",
+                SpravEnergonositel()),
+            conteiner_obshii(context,
+                "assets/xraschet-secheniya-provoda-po-diametru.jpg.pagespeed.ic.hKDCt7ETiy.jpg",
+                "Расчет сечения проводника по его диаметру или диаметра по сечению",
+                SechenieAndDiametrProvodnika()),
           ],
         ));
   }
