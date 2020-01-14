@@ -90,7 +90,9 @@ class _SpravEnergonositelState extends State<SpravEnergonositel> {
             color: Colors.white,
           ),
           onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MenuViborScreen())),
+              MaterialPageRoute(builder: (context) => MenuViborScreen()
+                  )),
+
         ),
       ),
       body: Container(

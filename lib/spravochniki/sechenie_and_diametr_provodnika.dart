@@ -90,18 +90,7 @@ class _SechenieAndDiametrProvodnikaState
     s = ((3.14 * (pow(d, 2))) / 4); // расчет с возведением в степень
   }
 
-  //пропускная способность по меди
-  void _cuprum(s){
 
-    switch(s*10){
-      case 5:
-        i=6;
-        break;
-      case 75:
-        i=6;
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:spravochnik_energi/main.dart';
+import 'package:spravochnik_energi/spravochniki/main_drawer/texnica_bezopasnosti.dart';
 import 'package:spravochnik_energi/spravochniki/sechenie_and_diametr_provodnika.dart';
 import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
 
@@ -98,6 +99,9 @@ class _MenuViborScreenState extends State<MenuViborScreen> {
                 "assets/xraschet-secheniya-provoda-po-diametru.jpg.pagespeed.ic.hKDCt7ETiy.jpg",
                 "Расчет сечения проводника по его диаметру или диаметра по сечению",
                 SechenieAndDiametrProvodnika()),
+            conteiner_obshii(context,
+                "assets/tehnika-bezopasnosti-elektrobezopasnost_r_w.jpg",
+                "Техника безопасности в электроустановках", TexnikaBezopasnosti())
           ],
         ));
   }
