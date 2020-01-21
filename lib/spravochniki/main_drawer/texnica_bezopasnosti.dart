@@ -8,6 +8,14 @@ import 'dart:math';
 import 'dart:core';
 
 import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
+import 'package:spravochnik_energi/spravochniki/tb/klass_el_ustanovok.dart';
+import 'package:spravochnik_energi/spravochniki/tb/naznachenie_obl_primenen.dart';
+import 'package:spravochnik_energi/spravochniki/tb/operativ_obslugivanie.dart';
+import 'package:spravochnik_energi/spravochniki/tb/treb_k_pomeshen.dart';
+import 'package:spravochnik_energi/spravochniki/tb/treb_k_siz.dart';
+import 'package:spravochnik_energi/spravochniki/tb/treb_k_zu.dart';
+import 'package:spravochnik_energi/spravochniki/tb/trebov_k_radioustanovkam.dart';
+import 'package:spravochnik_energi/spravochniki/tb/trebovan_k_personal.dart';
 
 class TexnikaBezopasnosti extends StatefulWidget {
   @override
@@ -32,42 +40,12 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
   //повторяющийся виджет основных столбцов  в таблице
   Widget tablRowComponent(String nomerPoz, String nameTablComp, nameScreen,
       {double h_shript = 1.2, double h_megduStrok = 1.0}) {
-//    return TableCell(
-//        children: <Widget>[
-//          Stack(children: <Widget>[
-//            Positioned(
-//              child: Container(
-////        height: height_tabl,
-//                padding: EdgeInsets.all(8),
-//                child: Text(
-//                  nameTablLeftComp,
-//                  textScaleFactor: h_shript,
-//                  textAlign: TextAlign.left,
-//
-//                  style: TextStyle(
-//                    fontWeight: FontWeight.bold,
-//                    fontStyle: FontStyle.italic,
-//                    color: Colors.black87,
-//                    height: h_megduStrok,
-//                  ),
-//                ),
-//              ),
-//            ),
-//            Positioned(
-//
-//            )
-//
-//          ],)
-//
-//  ]
-//    );
     return TableCell(
         child: Container(
       padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
       child: InkWell(
         child: Row(
           children: <Widget>[
-
             RichText(
               //Данный виджет используется, если необходимо отобразить в тексте несколько стилей. Каждый отдельный текст описывается с помощью TextSpan, в котором мы указываем необходимые нам стили. Для того чтобы не усложнять визуально код, старайтесь использовать для основного текста — стиль принятый по умолчанию, а для отличия — TextSpan:
               text: TextSpan(
@@ -81,20 +59,21 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                 ),
               ),
             ),
-            Flexible(//если вам придется работать с текстом, который выходит за рамки контейнера, вы можете обернуть виджет RichText или Text в виджет Flexible.
-              child:  RichText(
-              text: TextSpan(
-                text: nameTablComp,
-                style: TextStyle(
-                  inherit: true,
-                  color: Colors.black.withOpacity(1.0),
-                  /* при использовании Paint color не использовать*/
-                  fontSize: 20,
+            Flexible(
+              //если вам придется работать с текстом, который выходит за рамки контейнера, вы можете обернуть виджет RichText или Text в виджет Flexible.
+              child: RichText(
+                text: TextSpan(
+                  text: nameTablComp,
+                  style: TextStyle(
+                    inherit: true,
+                    color: Colors.black.withOpacity(1.0),
+                    /* при использовании Paint color не использовать*/
+                    fontSize: 20,
 //                foreground: Paint()..style=PaintingStyle.stroke..strokeWidth=2..color=Colors.purple[700],// Делает обводку и границы буквы
+                  ),
                 ),
               ),
-            ),)
-
+            )
           ],
         ),
         onTap: () {
@@ -105,26 +84,7 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
     ));
   }
 
-  //повторяющийся виджет столбцов по середине и справа в таблице
-  Widget tablCentrRightComponent(
-      String nameTablCentrRightComp, double h_shript, double h_megduStrok) {
-    return TableCell(
-      child: Container(
-        height: height_tabl,
-        padding: EdgeInsets.all(8),
-        child: Text(
-          nameTablCentrRightComp,
-          textScaleFactor: h_shript,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-              color: Colors.black87,
-              height: h_megduStrok),
-        ),
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +103,7 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
         leading: new IconButton(
           icon: new Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.black,
           ),
           onPressed: () => Navigator.push(context,
               MaterialPageRoute(builder: (context) => MenuViborScreen())),
@@ -181,54 +141,54 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                   tablRowComponent(
                       "1. ",
                       "Назначение и область применения правил.",
-                      TexnikaBezopasnosti()),
+                      NaznacenieOblPrimenen()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "2. ",
                       "Требования к техническому персоналу.",
-                      TexnikaBezopasnosti()),
+                      TrebovanPersonalu()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "3. ",
                       "Классификация электроустановок компании.",
-                      TexnikaBezopasnosti()),
+                      KlassElUstanovok()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "4. ",
                       "Требования к помещениям. \n Размещение оборудования.",
-                      TexnikaBezopasnosti()),
+                      TrebovPomashen()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "5. ",
                       "Требования безопасности к Радиоустановкам.",
-                      TexnikaBezopasnosti()),
+                      TrebovanRadioustanovkam()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "6. ",
                       "Требования к применению Средств защиты.",
-                      TexnikaBezopasnosti()),
+                      TrebovanSIZ()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent("7. ", "ЗУ - заземление электроустановок.",
-                      TexnikaBezopasnosti()),
+                      TrebovanZU()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "8. ",
                       "Оперативное обслуживание электроустановок.",
-                      TexnikaBezopasnosti()),
+                      OperativObslugivanie()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
