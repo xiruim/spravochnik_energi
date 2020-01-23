@@ -11,6 +11,8 @@ import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
 import 'package:spravochnik_energi/spravochniki/tb/klass_el_ustanovok.dart';
 import 'package:spravochnik_energi/spravochniki/tb/naznachenie_obl_primenen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/operativ_obslugivanie.dart';
+import 'package:spravochnik_energi/spravochniki/tb/organizaczion_meropr.dart';
+import 'package:spravochnik_energi/spravochniki/tb/proizvodstvo_rabot.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_pomeshen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_siz.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_zu.dart';
@@ -195,14 +197,14 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                   tablRowComponent(
                       "9. ",
                       "Производство работ в электроустановках.",
-                      TexnikaBezopasnosti()),
+                      ProizvodstvoRabot()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "10. ",
                       "ОРГАНИЗАЦИОННЫЕ МЕРОПРИЯТИЯ, обеспечивающие безопасность работ.",
-                      TexnikaBezopasnosti()),
+                      OrganizaczionMeropr()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
