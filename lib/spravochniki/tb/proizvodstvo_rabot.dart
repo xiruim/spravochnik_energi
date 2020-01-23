@@ -12,6 +12,7 @@ class _ProizvodstvoRabotState extends State<ProizvodstvoRabot> {
   double h_shript = 1.2;
   double h_megduStrok = 1.0;
 
+
 //---------------Текст странички--------------
   String text = '''
 \n 9.1. Все работы, производимые в электроустановках, в отношении мер безопасности подразделяются на выполняемые:
