@@ -8,11 +8,14 @@ import 'dart:math';
 import 'dart:core';
 
 import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
+import 'package:spravochnik_energi/spravochniki/tb/akkumulyatori.dart';
+import 'package:spravochnik_energi/spravochniki/tb/avariyno_vosstanovit_raboti.dart';
 import 'package:spravochnik_energi/spravochniki/tb/klass_el_ustanovok.dart';
 import 'package:spravochnik_energi/spravochniki/tb/naznachenie_obl_primenen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/operativ_obslugivanie.dart';
 import 'package:spravochnik_energi/spravochniki/tb/organizaczion_meropr.dart';
 import 'package:spravochnik_energi/spravochniki/tb/proizvodstvo_rabot.dart';
+import 'package:spravochnik_energi/spravochniki/tb/texnich_meropriiat.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_pomeshen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_siz.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_zu.dart';
@@ -213,14 +216,14 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                       "ТЕХНИЧЕСКИЕ МЕРОПРИЯТИЯ, "
                           "обеспечивающие безопасность работ, выполняемых со снятием   без снятия "
                           "напряжения на токоведущих частях и вблези них.",
-                      TexnikaBezopasnosti()),
+                      TexnichMeropriyatiya()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "12. ",
                       "АВАРИЙНО - ВОССТАНОВИТЕЛЬНЫЕ РАБОТЫ.",
-                      TexnikaBezopasnosti()),
+                      AvariynoVosstanovitRaboti()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
@@ -229,7 +232,7 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
-                      "16. ", "АККУМУЛЯТОРНЫЕ БАТАРЕИ.", TexnikaBezopasnosti()),
+                      "16. ", "АККУМУЛЯТОРНЫЕ БАТАРЕИ.", AKB()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
