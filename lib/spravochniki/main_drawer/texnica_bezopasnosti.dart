@@ -10,17 +10,22 @@ import 'dart:core';
 import 'package:spravochnik_energi/spravochniki/sprav_energonosit.dart';
 import 'package:spravochnik_energi/spravochniki/tb/akkumulyatori.dart';
 import 'package:spravochnik_energi/spravochniki/tb/avariyno_vosstanovit_raboti.dart';
+import 'package:spravochnik_energi/spravochniki/tb/elektroinstrument.dart';
+import 'package:spravochnik_energi/spravochniki/tb/ispitaniya_tb.dart';
 import 'package:spravochnik_energi/spravochniki/tb/klass_el_ustanovok.dart';
 import 'package:spravochnik_energi/spravochniki/tb/naznachenie_obl_primenen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/operativ_obslugivanie.dart';
 import 'package:spravochnik_energi/spravochniki/tb/organizaczion_meropr.dart';
+import 'package:spravochnik_energi/spravochniki/tb/pogruzka_razgruzka.dart';
 import 'package:spravochnik_energi/spravochniki/tb/proizvodstvo_rabot.dart';
+import 'package:spravochnik_energi/spravochniki/tb/rabota_na_visone.dart';
 import 'package:spravochnik_energi/spravochniki/tb/texnich_meropriiat.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_pomeshen.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_siz.dart';
 import 'package:spravochnik_energi/spravochniki/tb/treb_k_zu.dart';
 import 'package:spravochnik_energi/spravochniki/tb/trebov_k_radioustanovkam.dart';
 import 'package:spravochnik_energi/spravochniki/tb/trebovan_k_personal.dart';
+import 'package:spravochnik_energi/spravochniki/tb/znaki_bezopasnisti.dart';
 
 class TexnikaBezopasnosti extends StatefulWidget {
   @override
@@ -239,12 +244,12 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                   tablRowComponent(
                       "17. ",
                       "17. ПОГРУЗОЧНО - РАЗГРУЗОЧНЫЕ РАБОТЫ.",
-                      TexnikaBezopasnosti()),
+                      PogruzRazgruz()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
-                      "18. ", "РАБОТЫ НА ВЫСОТЕ.", TexnikaBezopasnosti()),
+                      "18. ", "РАБОТЫ НА ВЫСОТЕ.", RabotaNaVisote()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
@@ -252,19 +257,19 @@ class _TexnikaBezopasnostiState extends State<TexnikaBezopasnosti> {
                       "19. ",
                       "Требования безопасности при работе С ЭЛЕКТРОИНСТРУМЕНТОМ, "
                           "ручными электрическими машинами и ручными электрическими светильниками.",
-                      TexnikaBezopasnosti()),
+                      Elektroinstrument()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent(
                       "20. ",
                       "ПРОВЕДЕНИЕ ИСПЫТАНИЙ ОБОРУДОВАНИЯ И ИЗМЕРЕНИЙ.",
-                      TexnikaBezopasnosti()),
+                      IspitaniyaTB()),
                 ]),
                 TableRow(//первая строка таблицы
                     children: <TableCell>[
                   tablRowComponent("21. ", "ПЛАКАТЫ И ЗНАКИ БЕЗОПАСНОСТИ.",
-                      TexnikaBezopasnosti()),
+                      ZnakiBezopasnosti()),
                 ]),
               ],
             ),

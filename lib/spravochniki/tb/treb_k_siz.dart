@@ -88,6 +88,7 @@ class _TrebovanSIZState extends State<TrebovanSIZ> {
                     color: Colors.black87,
                     height: h_megduStrok),
               ),
+
             ])));
   }
 }
